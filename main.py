@@ -6,7 +6,7 @@ def get_data(name):
     url = f"https://raw.githubusercontent.com/gabrielpagotto/geo-api/dataset/dataset/{name}.json"
     try:
         response = requests.get(url)
-        response.raise_for_status()
+        response.raise_for_status()  # Isso gera um erro se a solicitação falhar (código de status diferente de 200)
         return response.json()
     except requests.RequestException as e:
         print(f"Erro ao fazer a requisição para {url}: {e}")
