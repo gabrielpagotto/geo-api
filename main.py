@@ -1,11 +1,16 @@
-import json
+import requests
 from fastapi import FastAPI
 
 
 def get_data(name):
-    with open(f"dataset/{name}.json", "r") as f:
-        data = json.load(f)
-    return data
+    url = f"https://raw.githubusercontent.com/gabrielpagotto/geo-api/dataset/dataset/{name}.json"
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as e:
+        print(f"Erro ao fazer a requisição para {url}: {e}")
+        return None
 
 
 all_cities = get_data("cities")
